@@ -1,0 +1,70 @@
+;; The defsrc layer does not specify all keys, to be compatible with several keyboard layouts.
+;; Tested some version of this file with:
+;; Two split keyboards, one of them with US layout
+;; Two japanese keyboards
+;; A spanish keyboard
+
+(defalias
+  met (multi
+        lmet
+      (layer-while-held workspaces))
+  ;   (switch 
+        ((key-timing 3 less-than 200)) ; break
+        () (tap-hold-release 0 200 ; (layer-while-held extra)) break
+      )
+  p   (switch 
+        ((key-timing 3 less-than 200)) p break
+        () (tap-hold-release 0 200 p (layer-while-held mouse)) break
+      )
+  bs  (layer-switch base)
+)
+
+(defsrc
+  tab  q    w    e    r    t    y    u    i    o    p    [
+  caps a    s    d    f    g    h    j    k    l    ;    '
+  lsft z    x    c    v    b    n    m          
+  lctl lmet lalt                          kana ralt rmet    
+)
+(deflayer base
+  _    _    _    _    _    _    _    _    _    _    @p   bspc
+  esc  _    _    _    _    _    _    _    _    _    @;   ret 
+  _    _    _    _    _    _    _    _          
+  _    @met lalt                          rctl rctl _             
+)
+(deflayer workspaces
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    1    2    3    4    5    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _          
+  _    _    _                             _    _    _        
+)
+(deflayer extra
+  0    1    2    3    4    5    6    7    8    9    0    _
+  _    rsft -    '    /    =    left down up   rght _    '
+  _    _    _    _    `    \    [    ]         
+  _    _    _                             _    _    _        
+)
+
+(defalias
+  o    (layer-while-held mouseslow)
+  ml   (movemouse-accel-left 10 150 5 14)
+  mu   (movemouse-accel-up  10 150 5 10)
+  md   (movemouse-accel-down 10 150 5 10)
+  mr   (movemouse-accel-right 10 150 5 14)
+  mls  (movemouse-accel-left 10 150 2 5)
+  mus  (movemouse-accel-up  10 150 2 3)
+  mds  (movemouse-accel-down 10 150 2 3)
+  mrs  (movemouse-accel-right 10 150 2 5)
+)
+
+(deflayer mouse
+  _    _    _    @mu  _    _    _    _    _   @o    _    _
+  _    mrgt @ml  @md  @mr  mlft _    _    _    _    _    _   
+  _    _    _    _    _    _    _    _          
+  _    _    _                             _    _    _        
+)
+(deflayer mouseslow
+  _    _    _    @mus _    _    _    _    _    _    _    _
+  _    mrgt @mls @mds @mrs mlft _    _    _    _    _    _   
+  _    _    _    _    _    _    _    _          
+  _    _    _                             _    _    _        
+)

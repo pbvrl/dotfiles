@@ -1,0 +1,59 @@
+{
+  "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Read(./**)",
+      "Search(./**)",
+      "Edit(./**)",
+      "MultiEdit(./**)",
+      "Write(./**)",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(rm:*)",
+      "Bash(rm -rf /)"
+    ],
+    "ask": [
+      "Bash(git:*)",
+      "Bash(gh:*)",
+      "Bash(curl:*)",
+      "Bash(sudo:*)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Task|Bash|Glob|Grep|Read|Edit|MultiEdit|Write|TodoWrite|WebFetch|WebSearch|NotebookEdit|BashOutput|ExitPlanMode|KillShell|SlashCommand",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/nixos/scripts_as_dotfiles/claudecode/hooks.py"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/nixos/scripts_as_dotfiles/claudecode/hooks.py"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true
+  },
+  "forceLoginMethod": "claudeai",
+  "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
+  "model": "opus"
+}

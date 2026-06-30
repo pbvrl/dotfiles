@@ -1,0 +1,11 @@
+blacklist = ["aichat", "aieditor", "news"]
+sort_order = ["nixos"]
+
+[[session]]
+name = "remote"
+startup_command = "~/.config/nixos/scripts/vps_connect.sh"
+
+[[session]]
+name = "nixos"
+startup_command = "hx ~/.config/nixos/hosts/local_config.nix"
+

@@ -1,0 +1,13 @@
+cursor-color=ff00ff
+shell-integration=fish
+shell-integration-features=true
+background-opacity=0.87
+window-decoration=none
+app-notifications=no-clipboard-copy
+clipboard-read=allow 
+
+# Instead of having a ghostty keybind for `scroll_page_fractional`,
+# I run tmux inside ghostty,
+# which allows me too use tmux-copy-mode's scrolling and copying features.
+
+# Otherwise I use Alacritty without tmux, which also has a similar copy-mode

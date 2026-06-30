@@ -1,0 +1,18 @@
+[mgr]
+ratio         = [0, 1, 1]
+
+[open]
+rules = [
+    { mime = "image/*", use = "image" },
+    { mime = "video/*", use = "video" },
+    { mime = "audio/*", use = "audio" },
+    { mime = "application/pdf", use = "pdf" },
+    { name = "*", use = "edit" }
+]
+
+[opener]
+image = [ { run = 'firefox "$@"', block = true }, ]
+video = [ { run = 'firefox "$@"', block = true }, ]
+audio = [ { run = 'firefox "$@"', block = true }, ]
+pdf = [ { run = 'sioyek "$@"', block = true }, ]
+edit = [ { run = 'hx "$@"', block = true }, ]
