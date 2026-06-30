@@ -10,7 +10,7 @@ riverctl spawn "mako"
 riverctl spawn "gammastep -O 3800"
 riverctl spawn "handy --start-hidden"
 
-riverctl set-repeat 45 200
+riverctl set-repeat 75 250
 riverctl input "pointer-1-1-kanata" tap enabled
 riverctl input "pointer-1-1-kanata" drag enabled
 riverctl input "pointer-1-1-kanata" drag-lock enabled

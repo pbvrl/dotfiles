@@ -160,13 +160,13 @@
     mutagen
     tailscale
     mosh
-    # rustdesk
     # Miscelanious
     nix-search-cli
     awscli2
     tree
     tty-clock
     libreoffice
+    github-linguist
     # Languages
     ## Python
     python313
