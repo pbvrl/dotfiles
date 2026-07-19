@@ -1,0 +1,9 @@
+variables:
+  - name: dirname
+  - name: question
+    rest: true
+    default: "Summarize how this repository works."
+
+steps:
+  - .file git:~/projects/{{dirname}}/ -- {{question}}
+

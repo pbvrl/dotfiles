@@ -1,0 +1,42 @@
+[flags]
+autohide_time = true
+rate = "700ms"
+default_time_value = "90s"
+hide_table_gap = true
+cpu_left_legend = true
+process_memory_as_value = true
+show_table_scroll_position = true
+network_use_log = true
+enable_cache_memory = true
+memory_legend = "top-left"
+network_legend = "top-left"
+
+[processes]
+columns = ["name", "cpu%", "mem%", "gpu%", "gmem%", "r/s", "w/s", "t.read", "t.write", "virt", "state", "user", "pid"]
+
+[disk]
+columns = ["Mount", "Used%", "Total", "R/s", "W/s"]
+
+[[row]]
+  ratio=55
+  [[row.child]]
+    type="cpu"
+  [[row.child]]
+    [[row.child.child]]
+      type="net"
+    [[row.child.child]]
+      type="mem"
+[[row]]
+  ratio=45
+  [[row.child]]
+    ratio=2
+    [[row.child.child]]
+      ratio=5
+      type="temp"
+    [[row.child.child]]
+      ratio=2
+      type="disk"
+  [[row.child]]
+    ratio=7
+    type="proc"
+    default=true

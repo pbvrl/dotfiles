@@ -1,0 +1,28 @@
+gui:
+  sidePanelWidth: 0.17
+  expandFocusedSidePanel: true
+  mainPanelSplitMode: horizontal
+  fileTreeSortOrder: filesFirst
+  showNumstatInFilesView: true
+  splitDiff: always
+  useHunkModeInStagingView: false
+  scrollHeight: 7
+  scrollPastBottom: false
+  showBottomLine: false
+  showListFooter: false
+keybinding:
+  universal:
+    prevItem-alt: 'k'
+    nextItem-alt: 'j'
+    return: 'h'
+    goInto: 'l'
+    copyToClipboard: 'y'
+    quit: '<c-q>'
+    nextBlock-alt: ''
+    prevBlock-alt: ''
+  copyToClipboardCmd: 'echo {{text}} | wl-copy'
+git:
+  pagers:
+    - useExternalDiffGitConfig: true
+os:
+  edit: 'hx {{filename}}'

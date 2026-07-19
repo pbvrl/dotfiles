@@ -1,0 +1,14 @@
+@ Blogs < reload-period 14400
+https://karpathy.bearblog.dev/feed        "Karpathy"
+https://geohot.github.io/blog/feed        "Geohot"
+
+@ Twitter < reload-period 14400
+https://nitter.poast.org/unclebobmartin/rss  "Uncle bob"
+https://nitter.poast.org/mitchellh/rss       "Hashimoto"
+
+@ Hackernews < reload-period 14400
+https://hnrss.org/bestcomments "Best comments"
+
+@ Videos < reload-period 14400
+https://www.youtube.com/feeds/videos.xml?channel_id=UCYeiozh-4QwuC1sjgCmB92w   "DevOps Toolbox"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCsBjURrPoezykLs9EqgamOA   "Fireship"
