@@ -1,0 +1,81 @@
+[[language]]
+name = "python"
+auto-format = true
+language-servers = ["basedpyright",  "ruff"]
+[language-server.basedpyright.config]
+basedpyright.analysis.typeCheckingMode = "standard"
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+[language-server.ruff.config.settings]
+args = ["--ignore", "E501"]
+[language.formatter]
+command = "ruff format"
+args = ["--line-length", "88", "--quiet", "-"]
+
+[[language]]
+name = "bash"
+language-servers = ["bash-language-server" ]
+auto-format = true
+
+[[language]]
+name = "go"
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+[[language]]
+name = "javascript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+[[language]]
+name = "tsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+[[language]]
+name = "jsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+[[language]]
+name = "json"
+language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+[language-server]
+biome = { command = "biome", args = ["lsp-proxy"] }
+
+[[language]]
+name = "kotlin"
+scope = "source.kotlin"
+file-types = ["kt", "kts"]
+roots = ["settings.gradle", "settings.gradle.kts"]
+comment-token = "//"
+block-comment-tokens = { start = "/*", end = "*/" }
+indent = { tab-width = 4, unit = "    " }
+language-servers = [ "kotlin-language-server" ]
+auto-format = true
+formatter = { command = "ktfmt ." }
+[language-server.kotlin-language-server]
+command = "kotlin-language-server"
+[[grammar]]
+name = "kotlin"
+source = { git = "https://github.com/fwcd/tree-sitter-kotlin", rev = "a4f71eb9b8c9b19ded3e0e9470be4b1b77c2b569" }
+
+[[language]]
+name = "nix"
+language-servers = ["nil" ]
+formatter = { command = "alejandra" }
+auto-format = true
+
+[[language]]
+name = "markdown"
+language-servers = [ "marksman" ]
+
+[[language]]
+name = "toml"
+roots = ["."]
+language-servers = ["taplo"]
+
+[language-server.qmlls]
+args = ["-E"]
+command = "qmlls"

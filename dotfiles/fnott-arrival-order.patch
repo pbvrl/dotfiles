@@ -1,0 +1,49 @@
+--- a/notification.c
++++ b/notification.c
+@@ -475,14 +475,11 @@
+     notif_reload_fonts(notif);
+     notif_reload_timeout(notif);
+ 
+-    tll_rforeach(mgr->notifs, it) {
+-        if (it->item->urgency >= notif->urgency) {
+-            tll_insert_after(mgr->notifs, it, notif);
+-            return notif;
+-        }
+-    }
+-
+-    tll_push_front(mgr->notifs, notif);
++    /* Order notifications by arrival only. Upstream keeps the list sorted by
++     * urgency, which groups critical notifications together and away from
++     * lower-urgency ones, so the on-screen order stops matching the order they
++     * arrived in. Urgency still selects colours, fonts and timeouts. */
++    tll_push_back(mgr->notifs, notif);
+     return notif;
+ }
+ 
+@@ -1091,24 +1088,8 @@
+     notif_reload_fonts(notif);
+     notif_reload_default_icon(notif);
+ 
+-    if (tll_length(notif->mgr->notifs) <= 1)
+-        return;
+-
+-    tll_foreach(notif->mgr->notifs, it) {
+-        if (it->item == notif) {
+-            tll_remove(notif->mgr->notifs, it);
+-            break;
+-        }
+-    }
+-
+-    tll_rforeach(notif->mgr->notifs, it) {
+-        if (it->item->urgency >= notif->urgency) {
+-            tll_insert_after(notif->mgr->notifs, it, notif);
+-            return;
+-        }
+-    }
+-
+-    tll_push_front(notif->mgr->notifs, notif);
++    /* Position is arrival order, so a change of urgency must not move the
++     * notification within the list. */
+ }
+ 
+ void

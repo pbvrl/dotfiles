@@ -1,0 +1,85 @@
+;; The defsrc layer does not specify all keys, to be compatible with several keyboard layouts.
+;; Tested some version of this file with:
+;; Two split keyboards, one of them with US layout
+;; Two japanese keyboards
+;; A spanish keyboard
+
+(defalias
+  met (multi
+        lmet
+      (layer-while-held workspaces))
+  ext (one-shot 2000 (layer-while-held extra))
+  shf (one-shot 2000 (layer-while-held extrashift))
+  :   (switch
+        ((key-timing 3 less-than 200)) S-; break
+        () (tap-hold-release 0 200 S-; (layer-while-held arrows)) break
+      )
+  p   (switch 
+        ((key-timing 3 less-than 200)) p break
+        () (tap-hold-release 0 200 p (layer-while-held mouse)) break
+      )
+  bs  (layer-switch base)
+)
+
+(defsrc
+  tab  q    w    e    r    t    y    u    i    o    p    [
+  caps a    s    d    f    g    h    j    k    l    ;    '
+  lsft z    x    c    v    b    n    m    ,    .    /
+  lctl lmet lalt                     henk kana ralt rmet
+)
+(deflayer base
+  _    _    _    _    _    _    _    _    _    _    @p   bspc
+  esc  _    _    _    _    _    _    _    _    _    @:   ret
+  _    _    _    _    _    _    _    _    _    _    _
+  _    @met lalt                     @ext rctl rctl @ext
+)
+(deflayer workspaces
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    1    2    3    4    5    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _
+  _    _    _                        _    _    _    _
+)
+;; Held by @:
+(deflayer arrows
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    '    /    _    left down up   rght _    _
+  _    _    _    S-'  _    _    _    _    _    _    _
+  _    _    _                        _    _    _    _
+)
+(deflayer extra
+  _    1    2    3    4    5    6    7    8    _    _    _
+  _    @shf -    '    /    =    ;    9    0    [    ]    _
+  _    _    S--  S-'  S-/  S-=  `    \    _    _    _
+  _    _    _                        _    _    _    _
+)
+(deflayer extrashift
+  _    S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  _    _    _
+  _    _    S-,  _    S-.  _    _    S-9  S-0  S-[  S-]  _  
+  _    _    _    _    _    _    S-`  S-\  _    _    _
+  _    _    _                        _    _    _    _
+)
+
+(defalias
+  o    (layer-while-held mouseslow)
+  ml   (movemouse-accel-left 10 150 5 14)
+  mu   (movemouse-accel-up  10 150 5 10)
+  md   (movemouse-accel-down 10 150 5 10)
+  mr   (movemouse-accel-right 10 150 5 14)
+  mls  (movemouse-accel-left 10 150 2 5)
+  mus  (movemouse-accel-up  10 150 2 3)
+  mds  (movemouse-accel-down 10 150 2 3)
+  mrs  (movemouse-accel-right 10 150 2 5)
+)
+
+(deflayer mouse
+  _    _    _    @mu  _    _    _    _    _   @o    _    _
+  _    mrgt @ml  @md  @mr  mlft _    _    _    _    _    _   
+  _    _    _    _    _    _    _    _    _    _    _
+  _    _    _                        _    _    _    _        
+)
+(deflayer mouseslow
+  _    _    _    @mus _    _    _    _    _    _    _    _
+  _    mrgt @mls @mds @mrs mlft _    _    _    _    _    _   
+  _    _    _    _    _    _    _    _    _    _    _
+  _    _    _                        _    _    _    _        
+)

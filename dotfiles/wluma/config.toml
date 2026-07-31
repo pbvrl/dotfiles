@@ -1,0 +1,8 @@
+[als.time]
+thresholds = { 0 = "night", 7 = "dark", 9 = "dim", 11 = "normal", 16 = "bright", 18 = "dark", 20 = "night" }
+
+[[output.backlight]]
+name = "eDP-1"
+path = "/sys/class/backlight/intel_backlight"
+capturer = "wayland"
+

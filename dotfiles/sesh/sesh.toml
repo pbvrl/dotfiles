@@ -1,0 +1,7 @@
+blacklist = ["aichat", "aieditor", "news"]
+sort_order = ["nixos"]
+
+[[session]]
+name = "nixos"
+startup_command = "hx ~/.config/nixos/hosts/config.nix"
+

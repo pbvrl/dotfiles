@@ -1,0 +1,70 @@
+{
+  "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Read(./**)",
+      "Search(./**)",
+      "Edit(./**)",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(rm:*)",
+      "Bash(rm -rf /)"
+    ],
+    "ask": [
+      "Bash(gh:*)",
+      "Bash(curl:*)",
+      "Bash(sudo:*)"
+    ],
+    "defaultMode": "bypassPermissions"
+  },
+  "model": "opus[1m]",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Task|Bash|Glob|Grep|Read|Edit|MultiEdit|Write|TodoWrite|WebFetch|WebSearch|NotebookEdit|BashOutput|ExitPlanMode|KillShell|SlashCommand",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/nixos/scripts_as_dotfiles/claudecode/hooks.py"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/nixos/scripts_as_dotfiles/claudecode/hooks.py"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/nixos/scripts_as_dotfiles/claudecode/hooks.py"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "forceLoginMethod": "claudeai",
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
+  "tui": "default",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark"
+}
