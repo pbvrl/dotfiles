@@ -13,9 +13,11 @@ import Quickshell.Wayland
 
 ShellRoot {
     id: root
-    property var widgetWidth: 0.4
-    property var widgetHeight: 0.95
-    property var maxKeybindsPerColumn: 30
+    property var maxWidthFraction: 0.95
+    property var maxHeightFraction: 0.95
+    property var padding: 20
+    property var maxRowsPerColumn: 30
+    property var maxRelatedFileRows: 4
     property var title: "Keybind helper"
     property var keybindingGroups: [
         {
@@ -136,6 +138,7 @@ ShellRoot {
             ]
         },
     ]
+    property string sourceFilesRoot: "~/.config/nixos/"
     property var sourceFiles: [
         "~/.config/nixos/dotfiles/kanata/kanata.kbd",
         "~/.config/nixos/scripts_as_dotfiles/quickshell/keyboard_overlay.qml",
@@ -152,46 +155,45 @@ ShellRoot {
     ]
     property string footerNote: "Also: Defaults from Helix/Neovim, Yazi, Lazygit, etc"
     property string footerNote2: "For less frequent functionality, consider the app launcher or running scripts from the shell prompt.\nSee ~/.config/nixos/scripts/**"
-    
-    property var numColumns: {
-        var totalKeybindings = 0
-        for (var i = 0; i < keybindingGroups.length; i++) {
-            totalKeybindings += keybindingGroups[i].keybindings.length
-        }
-        return Math.max(1, Math.ceil(totalKeybindings / maxKeybindsPerColumn))
-    }
-    property var columnDistributions: {
-        var columns = []
-        for (var c = 0; c < numColumns; c++) {
-            columns.push([])
-        }
-        var currentColumn = 0
-        var currentColumnItems = 0
-        for (var i = 0; i < keybindingGroups.length; i++) {
-            var category = keybindingGroups[i]
-            var categoryItems = category.keybindings.length
-            if (currentColumnItems + categoryItems > maxKeybindsPerColumn && 
-                columns[currentColumn].length > 0 && currentColumn < numColumns - 1) {
-                currentColumn++
-                currentColumnItems = 0
+
+    property var columns: {
+        var weights = keybindingGroups.map(function (group) {
+            return group.keybindings.reduce(function (rows, bind) {
+                return rows + bind.description.split("\n").length
+            }, 2)
+        })
+        var total = weights.reduce(function (a, b) { return a + b }, 0)
+        var wanted = Math.max(1, Math.ceil(total / maxRowsPerColumn))
+        var packed = [[]]
+        var used = 0
+        for (var g = 0; g < keybindingGroups.length; g++) {
+            if (packed.length < wanted && used > 0 && used + weights[g] / 2 > total / wanted) {
+                packed.push([])
+                used = 0
             }
-            columns[currentColumn].push(i)
-            currentColumnItems += categoryItems
+            var cells = packed[packed.length - 1]
+            var group = keybindingGroups[g]
+            cells.push({ "kind": "header", "text": group.category, "spaced": used > 0 })
+            for (var b = 0; b < group.keybindings.length; b++) {
+                cells.push({ "kind": "key", "text": group.keybindings[b].key })
+                cells.push({ "kind": "description", "text": group.keybindings[b].description })
+            }
+            used += weights[g]
         }
-        return columns
+        return packed
     }
-    
-    // Global toggle state
+
     property bool showKeybindings: false
     IpcHandler {
         target: "KeybindHelperHandler"
-        
+
         function toggle(): void {
             root.showKeybindings = !root.showKeybindings
         }
     }
-    
+
     PanelWindow {
+        id: panel
         visible: root.showKeybindings
         screen: Quickshell.screens[0]
         WlrLayershell.layer: WlrLayer.Overlay
@@ -203,8 +205,12 @@ ShellRoot {
             right: 20
             bottom: 30
         }
-        implicitWidth: screen.width * widgetWidth
-        implicitHeight: screen.height * widgetHeight
+
+        readonly property real fitScale: Math.min(1,
+            (screen.width * root.maxWidthFraction - 2 * root.padding) / Math.max(1, content.implicitWidth),
+            (screen.height * root.maxHeightFraction - 2 * root.padding) / Math.max(1, content.implicitHeight))
+        implicitWidth: content.implicitWidth * fitScale + 2 * root.padding
+        implicitHeight: content.implicitHeight * fitScale + 2 * root.padding
         color: "#E0000000"
         MouseArea {
             anchors.fill: parent
@@ -212,106 +218,87 @@ ShellRoot {
         }
         ColumnLayout {
             id: content
-            anchors.fill: parent
-            anchors.margins: 20
+            x: root.padding
+            y: root.padding
+            width: implicitWidth
+            height: implicitHeight
+            transformOrigin: Item.TopLeft
+            scale: panel.fitScale
             spacing: 15
-            
+
             // Title section
-            RowLayout {
-                Layout.fillWidth: true
-                Text {
-                    text: title
-                    color: "#FFFFFF"
-                    font.pointSize: 18
-                    font.bold: true
-                    Layout.fillWidth: true
-                }
+            Text {
+                text: root.title
+                color: "#FFFFFF"
+                font.pointSize: 18
+                font.bold: true
             }
             Rectangle {
                 Layout.fillWidth: true
-                height: 1
+                Layout.preferredHeight: 1
                 color: "#40FFFFFF"
             }
-            
+
             // Main section
             RowLayout {
-                Layout.fillWidth: false
-                Layout.fillHeight: false
                 spacing: 50
                 Repeater {
-                    model: root.numColumns
-                    ColumnLayout {
-                        Layout.fillWidth: true
+                    model: root.columns
+                    GridLayout {
+                        required property var modelData
                         Layout.alignment: Qt.AlignTop
-                        spacing: 15
+                        columns: 2
+                        columnSpacing: 12
+                        rowSpacing: 3
                         Repeater {
-                            model: root.columnDistributions[index]
-                            ColumnLayout {
-                                property var groupData: root.keybindingGroups[modelData]
-                                spacing: 6
-                                Text {
-                                    text: groupData.category
-                                    color: "#66D9EF"
-                                    font.pointSize: 12
-                                    font.bold: true
-                                }
-                                Repeater {
-                                    model: groupData.keybindings
-                                    RowLayout {
-                                        property var keybinding: modelData
-                                        Layout.fillWidth: true
-                                        spacing: 8
-                                        Text {
-                                            text: keybinding.key
-                                            color: "#A6E22E"
-                                            font.pointSize: 9
-                                            font.family: "monospace"
-                                            Layout.preferredWidth: 100
-                                        }
-                                        Text {
-                                            text: keybinding.description
-                                            color: "#F8F8F2"
-                                            font.pointSize: 9
-                                            Layout.fillWidth: true
-                                            wrapMode: Text.WordWrap
-                                        }
-                                    }
-                                }
+                            model: modelData
+                            Text {
+                                required property var modelData
+                                text: modelData.text
+                                color: modelData.kind === "header" ? "#66D9EF"
+                                     : modelData.kind === "key" ? "#A6E22E"
+                                     : "#F8F8F2"
+                                font.pointSize: modelData.kind === "header" ? 12 : 9
+                                font.bold: modelData.kind === "header"
+                                font.family: modelData.kind === "key" ? "monospace" : "sans-serif"
+                                Layout.columnSpan: modelData.kind === "header" ? 2 : 1
+                                Layout.topMargin: modelData.spaced ? 12 : 0
+                                Layout.alignment: Qt.AlignTop
                             }
                         }
                     }
                 }
             }
-            
+
             // Related files section
             ColumnLayout {
+                Layout.fillWidth: true
+                Layout.topMargin: 5
                 spacing: 8
                 Rectangle {
                     Layout.fillWidth: true
-                    height: 1
+                    Layout.preferredHeight: 1
                     color: "#40FFFFFF"
                 }
                 Text {
-                    text: "Related files:"
+                    text: "Related files (in " + root.sourceFilesRoot + "):"
                     color: "#FD971F"
                     font.pointSize: 10
                     font.bold: true
                 }
+                // Columns are added as needed; paths drop the shared root above.
                 GridLayout {
-                    Layout.fillWidth: false
-                    columns: 2
-                    rows: Math.ceil(root.sourceFiles.length / 2)
                     flow: GridLayout.TopToBottom
-                    columnSpacing: 20
-                    rowSpacing: 3
+                    rows: root.maxRelatedFileRows
+                    columnSpacing: 30
+                    rowSpacing: 4
                     Repeater {
                         model: root.sourceFiles
                         Text {
-                            text: "• " + modelData
+                            text: "• " + modelData.replace(root.sourceFilesRoot, "")
                             color: "#75715E"
                             font.pointSize: 9
                             font.family: "monospace"
-                            Layout.fillWidth: true
                         }
                     }
                 }
