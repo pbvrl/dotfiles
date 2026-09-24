@@ -30,7 +30,7 @@ ShellRoot {
                 { "key": "", "description": "Super+asdfg --> Super+1-5" },
                 { "key": "; (Hold)+hjkl", "description": "Arrow keys" },
                 { "key": "; (Hold)+dfc", "description": "Apostrophe, slash, quotes" },
-                { "key": "RSuper, Henkan", "description": "Symbols/numbers layer, \nnext keystroke only" },
+                { "key": "RSuper, PrtSc", "description": "Symbols/numbers layer, \nnext keystroke only" },
                 { "key": "  ...then a", "description": "Second symbols layer" },
                 { "key": "p (Hold)+sedf", "description": "Move mouse" },
                 { "key": "p+o (Hold)+sedf", "description": "Move mouse slowly" },
