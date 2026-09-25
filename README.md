@@ -91,7 +91,7 @@ sudo nixos-generate-config --no-filesystems --show-hardware-config > /home/nixos
 sudo nixos-install --root /mnt --impure --flake /home/nixos/.config/nixos#base
 ```
 
-9. Symlink dotfiles before rebooting, so rebooting lands in a ready system:
+9. Symlink dotfiles before rebooting, so rebooting lands in a ready system. Also set the user password, in case there's a problem autologging to river:
 
 > Ignore the "Cannot read ssh key" and the "su: Authentication service cannot retrieve authentication info" warnings, they resolve on first boot. Ignore "Activation script snippet 'setupSecrets' failed"
 
@@ -101,6 +101,7 @@ sudo mkdir -p /mnt/home/nixos/.config
 sudo cp /home/nixos/.config/nixos /mnt/home/nixos/.config/nixos -r
 sudo nixos-enter --root /mnt -c "chown -R nixos:users /home/nixos"
 sudo nixos-enter --root /mnt -c "su - nixos -c /home/nixos/.config/nixos/scripts/stow.sh"
+sudo nixos-enter --root /mnt -c "passwd nixos"
 ```
 
 10. Reboot

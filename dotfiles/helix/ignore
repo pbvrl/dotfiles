@@ -22,3 +22,4 @@ viz_log/
 log_tr_viz/
 
 .pytest_cache/
+**/.ruff_cache/
