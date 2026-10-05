@@ -13,6 +13,7 @@ right = [ "diagnostics", "register", "file-encoding", "spinner"]
 [editor]
 jump-label-alphabet = "asdfghjklqwertyuiopzxcvbnm"
 true-color = true
+default-yank-register = "+"
 
 [editor.file-picker]
 hidden = false
@@ -28,10 +29,3 @@ C-r = [
     ":redraw",
     ":reload-all"
 ]
-# use system clipboard
-p = "paste_clipboard_after"
-P = "paste_clipboard_before"
-y = "yank_to_clipboard"
-Y = "yank_joined_to_clipboard"
-R = "replace_selections_with_clipboard"
-d = ["yank_to_clipboard", "delete_selection_noyank"]
