@@ -47,9 +47,8 @@ riverctl map normal Mod1 space spawn "handy --toggle-transcription"
 # Initial apps (Equivalent of workspaces 1,2,3 in i3/Sway)
 
 riverctl rule-add -app-id tmux.term tags 1
-# DIR=$(zoxide query ~/projects/)
-# SESSION=${DIR##*/}
-riverctl spawn "ghostty --class=tmux.term --gtk-tabs-location=hidden --initial-command='cd ~/.config/nixos && tmux new-session -A -s remote'"
+DIR=$(zoxide query ~/projects/)
+riverctl spawn "ghostty --class=tmux.term --gtk-tabs-location=hidden --initial-command='sesh connect $DIR'"
 riverctl rule-add -app-id firefox tags 2
 riverctl spawn "firefox"
 riverctl rule-add -app-id notes.term tags 4
