@@ -6,7 +6,7 @@
 }: {
   # nix PROGRAM CONFIGURATION
   imports = [
-    ../dotfiles/gdm.nix
+    ../dotfiles/greetd.nix
     ../secrets/sopsnix.nix
     ../dotfiles/kanata.nix
     ../dotfiles/udisks.nix
@@ -58,8 +58,9 @@
     # Displays
     wlr-randr
     wl-mirror
-    # Display manager (For logging in)
-    gdm
+    # Login manager
+    tuigreet
+    greetd
     # Compositor
     river-classic # Similar to i3/sway. Aside from to set scratchpads, I use it the same as i3/sway.
     sway
@@ -238,7 +239,6 @@
     SHELL = "fish";
     XDG_CURRENT_DESKTOP = "river";
     XDG_SESSION_TYPE = "wayland";
-    WAYLAND_DISPLAY = "wayland-1";
     WLR_RENDER_NO_EXPLICIT_SYNC = "1"; # Fixes flickering on zed? https://github.com/zed-industries/zed/issues/32792
     MOZ_ENABLE_WAYLAND = "1";
     GTK_USE_PORTAL = "1";
