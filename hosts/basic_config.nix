@@ -128,6 +128,7 @@
 
   # Printing
   config.services.printing.enable = true;
+  config.services.printing.browsed.enable = false;
 
   # State version - Different from the nixpkgs version specified at flake.nix.
   # WARNING: Avoid changing it unless you've read the nixos docs/wiki on it.

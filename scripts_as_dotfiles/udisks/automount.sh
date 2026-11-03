@@ -30,7 +30,7 @@ mount() {
     fi
     for automountable_serial in "${AUTOMOUNTABLE_SERIALS[@]}"; do
         if [ "$serial" = "$automountable_serial" ]; then
-            udisksctl mount --block-device "$devname" --no-user-interaction --options "$mount_opts"
+            udisksctl mount --block-device "$devname" --no-user-interaction --options "$mount_opts" || true
             break
         fi
     done

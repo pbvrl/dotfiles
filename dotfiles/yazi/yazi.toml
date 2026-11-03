@@ -11,8 +11,8 @@ rules = [
 ]
 
 [opener]
-image = [ { run = 'firefox "$@"', block = true }, ]
-video = [ { run = 'firefox "$@"', block = true }, ]
-audio = [ { run = 'firefox "$@"', block = true }, ]
-pdf = [ { run = 'sioyek "$@"', block = true }, ]
-edit = [ { run = 'hx "$@"', block = true }, ]
+image = [ { run = 'firefox %s', block = true }, ]
+video = [ { run = 'firefox %s', block = true }, ]
+audio = [ { run = 'firefox %s', block = true }, ]
+pdf = [ { run = 'sioyek %s', block = true }, ]
+edit = [ { run = 'hx %s', block = true }, ]

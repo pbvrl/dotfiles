@@ -5,7 +5,7 @@ gui:
   fileTreeSortOrder: filesFirst
   showNumstatInFilesView: true
   # splitDiff: always
-  useHunkModeInStagingView: false
+  useHunkModeInDiffView: false
   scrollHeight: 7
   scrollPastBottom: false
   showBottomLine: false
@@ -22,7 +22,7 @@ keybinding:
     prevBlock-alt: ''
   copyToClipboardCmd: 'echo {{text}} | wl-copy'
 git:
-  pagers:
-    - useExternalDiffGitConfig: true
+  diffRenderers:
+    - type: extDiff
 os:
   edit: 'hx {{filename}}'

@@ -10,4 +10,4 @@ clipboard-read=allow
 # I run tmux inside ghostty,
 # which allows me too use tmux-copy-mode's scrolling and copying features.
 
-# Otherwise I use Alacritty without tmux, which also has a similar copy-mode
+# Otherwise I use WezTerm without tmux, which also has a similar copy-mode

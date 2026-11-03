@@ -47,7 +47,7 @@ riverctl map normal Mod1 space spawn "handy --toggle-transcription"
 # Initial apps (Equivalent of workspaces 1,2,3 in i3/Sway)
 
 riverctl rule-add -app-id tmux.term tags 1
-DIR=$(zoxide query ~/projects/)
+DIR=$(zoxide query ~/projects/*/master)
 riverctl spawn "ghostty --class=tmux.term --gtk-tabs-location=hidden --initial-command='sesh connect $DIR'"
 riverctl rule-add -app-id firefox tags 2
 riverctl spawn "firefox"
@@ -82,21 +82,22 @@ riverctl rule-add -app-id aichat.term tags 4096 # 000000000000000000010000000000
 riverctl rule-add -app-id aichat.term float
 riverctl rule-add -app-id aichat.term csd
 riverctl rule-add -app-id aichat.term dimensions "$LARGE_W" "$LARGE_H"
-riverctl spawn "alacritty --class 'aichat.term' --title 'aichat' -e bash -c 'export OPENROUTER_API_KEY=\$(cat /run/secrets/OPENROUTER_API_KEY); aichat; exec bash'"
+riverctl spawn "wezterm --config initial_cols=184 --config initial_rows=49 start --class 'aichat.term' --workspace 'aichat' -- bash -c 'export OPENROUTER_API_KEY=\$(cat /run/secrets/OPENROUTER_API_KEY); aichat; exec bash'"
 riverctl map normal Mod1 h spawn 'sh -c "riverctl toggle-focused-tags 4096; riverctl focus-view next"'
 
 riverctl rule-add -app-id localai.term tags 8192 # 00000000000000000010000000000000
 riverctl rule-add -app-id localai.term float
 riverctl rule-add -app-id localai.term csd
 riverctl rule-add -app-id localai.term dimensions "$LARGE_W" "$LARGE_H"
-riverctl spawn "alacritty --class 'localai.term' --title 'localai' -o 'window.decorations_theme_variant=\"light\"' -e bash -c 'cd ~/.config/nixos; claude; exec bash'"
+riverctl spawn "WEZTERM_TITLEBAR=light wezterm --config initial_cols=184 --config initial_rows=49 start --class 'localai.term' --workspace 'localai' -- bash -c 'cd ~/.config/nixos; claude --resume; exec bash'"
 riverctl map normal Mod1 i spawn 'sh -c "riverctl toggle-focused-tags 8192; riverctl focus-view next"'
 
 riverctl rule-add -app-id remoteai.term tags 16384 # 00000000000000000100000000000000
 riverctl rule-add -app-id remoteai.term float
 riverctl rule-add -app-id remoteai.term csd
 riverctl rule-add -app-id remoteai.term dimensions "$LARGE_W" "$LARGE_H"
-riverctl spawn "alacritty --class 'remoteai.term' --title 'remoteai' -e bash -c 'opencode attach http://vps:4096; exec bash'"
+# riverctl spawn "wezterm --config initial_cols=184 --config initial_rows=49 start --class 'remoteai.term' --workspace 'remoteai' -- bash -c 'opencode attach http://vps:4096; exec bash'"
+riverctl spawn "wezterm --config initial_cols=184 --config initial_rows=49 start --class 'remoteai.term' --workspace 'remoteai' -- bash -c 'opencode; exec bash'"
 riverctl map normal Mod1 u spawn 'sh -c "riverctl toggle-focused-tags 16384; riverctl focus-view next"'
 
 riverctl rule-add -app-id news.term tags 32768 # 00000000000000001000000000000000

@@ -30,11 +30,13 @@
       User = "usbAutomount";
     };
   };
-  # Allows mounting with 'udisksctl mount --no-user-interaction' to the user and the automount service
+  # Allows mounting with 'udisksctl mount --no-user-interaction' to the user and the automount service.
+  # usbAutomount has no login session on the drive's seat, so udisks checks 'filesystem-mount-other-seat' for it.
   security.polkit.extraConfig = ''
     polkit.addRule(function(action, subject) {
-      if (action.id == "org.freedesktop.udisks2.filesystem-mount" &&
-          (subject.user == "${config.userDefinedGlobalVariables.username}" ||
+      if ((action.id == "org.freedesktop.udisks2.filesystem-mount" &&
+           subject.user == "${config.userDefinedGlobalVariables.username}") ||
+          (action.id == "org.freedesktop.udisks2.filesystem-mount-other-seat" &&
            subject.user == "usbAutomount")) {
         return polkit.Result.YES;
       }

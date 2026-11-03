@@ -94,6 +94,7 @@
     # Terminal
     ghostty
     alacritty
+    wezterm
     foot
     # Interactive shell
     fish
@@ -125,7 +126,8 @@
     # Browser
     qutebrowser
     librewolf
-    (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override {pipewireSupport = true;}) {})
+    firefox
+    # (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override {pipewireSupport = true;}) {})
     brave
     # RSS
     newsraft
@@ -167,6 +169,9 @@
     # vlc
     # Light warmth, brightness
     gammastep
+    # Printer
+    system-config-printer
+    evince
     # Base linux stuff
     coreutils
     # Remote development
@@ -177,6 +182,7 @@
     # Miscelanious
     ghgrab
     nix-search-cli
+    trash-cli
     awscli2
     tree
     tty-clock

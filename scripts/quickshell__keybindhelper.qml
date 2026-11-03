@@ -65,9 +65,9 @@ ShellRoot {
             ]
         },
         {
-            "category": "Alacritty",
+            "category": "WezTerm",
             "keybindings": [
-                { "key": "Alt-f", "description":  "Enter copy mode" },
+                { "key": "Alt-f", "description":  "Enter copy mode (like tmux)" },
                 { "key": "Enter", "description":  "Exit copy mode, copying selection" },
             ]
         },
@@ -82,7 +82,7 @@ ShellRoot {
             "keybindings": [
                 { "key": "Alt+t", "description": "New window" },
                 { "key": "Alt+w", "description": "Close window/pane" },
-                { "key": "Alt+y", "description": "Split panes and open yazi" },
+                { "key": "Alt+y", "description": "Split panes and open file manager (yazi)" },
                 { "key": "Alt+e", "description": "Toggle focus to nested session" },
                 { "key": "Alt+r", "description": "Rename window" },
                 { "key": "Alt+n", "description": "Split panes" },
@@ -144,7 +144,8 @@ ShellRoot {
         "~/.config/nixos/scripts_as_dotfiles/quickshell/keyboard_overlay.qml",
         "~/.config/nixos/scripts/river/init",
         "~/.config/nixos/dotfiles/fcitx5/config",
-        "~/.config/nixos/dotfiles/alacritty/alacritty.conf",
+        "~/.config/nixos/dotfiles/ghostty/ghostty",
+        "~/.config/nixos/dotfiles/wezterm/wezterm.lua",
         "~/.config/nixos/dotfiles/tmux/.tmux.conf",
         "~/.config/nixos/dotfiles/helix/config.toml",
         "~/.config/nixos/dotfiles/fish/config.fish",
