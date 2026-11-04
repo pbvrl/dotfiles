@@ -4,7 +4,7 @@
   ...
 }: let
   sessions = "${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
-  autologinDelay = 7;
+  autologinDelay = 5;
   autologin = pkgs.writeShellScript "autologin" ''
     printf '\033[2J\033[H'
     echo "Starting River in ${toString autologinDelay} seconds. Press c for river-classic, s for Sway, any other key for tuigreet."

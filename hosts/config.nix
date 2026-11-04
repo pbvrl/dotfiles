@@ -38,7 +38,7 @@
     # Backups
     restic
     # Api key management
-    sops # + sops-nix (which had to be installed as a flake input)
+    sops # + sops-nix (which had to be installed as a flake input (flake.nix))
     age
     ripsecrets
     sbctl
@@ -81,7 +81,7 @@
     sesh
     # IDE
     helix
-    neovim # I don't use it anymore but I realize a majority of people who might try this setup do use it.
+    neovim # I don't use it anymore but I realize the majority of people who might try this setup do use it.
     lazygit
     scooter # Allows global search-and-replace within helix
     lazysql
@@ -90,7 +90,7 @@
     # AI assistant
     claude-code
     opencode
-    aichat # with yek+jaq (jq) for feeding it a whole codebase
+    aichat # with yek+jaq (jq) for feeding it a whole codebase; will probably remove since frontiner lab harnesses already do this now
     yek
     # App launcher
     fuzzel
@@ -127,11 +127,9 @@
     # File manager gui
     nautilus
     # Browser
-    qutebrowser
-    librewolf
     firefox
-    # (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override {pipewireSupport = true;}) {})
     brave
+    qutebrowser
     # RSS
     newsraft
     # Pdfs
@@ -242,9 +240,7 @@
     XDG_CURRENT_DESKTOP = "river";
     XDG_SESSION_TYPE = "wayland";
     WLR_RENDER_NO_EXPLICIT_SYNC = "1"; # Fixes flickering on zed? https://github.com/zed-industries/zed/issues/32792
-    MOZ_ENABLE_WAYLAND = "1";
     GTK_USE_PORTAL = "1";
-    NIXOS_XDG_OPEN_USE_PORTAL = "1";
     NIXOS_OZONE_WL = "1";
     # Python
     PYTHONDONTWRITEBYTECODE = 1;
