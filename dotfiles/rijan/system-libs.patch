@@ -1,0 +1,72 @@
+diff --git a/build.zig b/build.zig
+index 349b34e..aa0d1c5 100644
+--- a/build.zig
++++ b/build.zig
+@@ -41,7 +41,6 @@ pub fn build(b: *Build) !void {
+ 
+     const lemongrass = b.dependency("lemongrass", .{});
+     const janet_wayland = b.dependency("janet_wayland", .{});
+-    const wayland = b.dependency("wayland", .{ .linkage = .dynamic });
+     const wayland_native = b.addLibrary(.{
+         .name = "wayland-native",
+         .root_module = b.createModule(.{
+@@ -52,13 +51,8 @@ pub fn build(b: *Build) !void {
+     });
+     wayland_native.addCSourceFile(.{ .file = janet_wayland.path("src/wayland-native.c") });
+     wayland_native.root_module.linkLibrary(janet.artifact("janet"));
+-    wayland_native.root_module.linkLibrary(wayland.artifact("wayland-client"));
++    wayland_native.root_module.linkSystemLibrary("wayland-client", .{});
+ 
+-    const wayland_static = b.dependency("wayland", .{
+-        .target = target,
+-        .optimize = optimize,
+-        .linkage = .static,
+-    });
+     const wayland_native_static = b.addLibrary(.{
+         .name = "wayland-native",
+         .root_module = b.createModule(.{
+@@ -73,10 +67,9 @@ pub fn build(b: *Build) !void {
+         .flags = &.{"-DJANET_ENTRY_NAME=janet_module_entry_wayland_native"},
+     });
+     wayland_native_static.root_module.linkLibrary(janet_static.artifact("janet"));
+-    wayland_native_static.root_module.linkLibrary(wayland_static.artifact("wayland-client"));
++    wayland_native_static.root_module.linkSystemLibrary("wayland-client", .{});
+ 
+     const janet_xkbcommon = b.dependency("janet_xkbcommon", .{});
+-    const xkbcommon = b.dependency("libxkbcommon", .{ .linkage = .dynamic });
+     const xkbcommon_native = b.addLibrary(.{
+         .name = "xkbcommon-native",
+         .root_module = b.createModule(.{
+@@ -87,13 +80,8 @@ pub fn build(b: *Build) !void {
+     });
+     xkbcommon_native.addCSourceFile(.{ .file = janet_xkbcommon.path("src/xkbcommon-native.c") });
+     xkbcommon_native.root_module.linkLibrary(janet.artifact("janet"));
+-    xkbcommon_native.root_module.linkLibrary(xkbcommon.artifact("xkbcommon"));
++    xkbcommon_native.root_module.linkSystemLibrary("xkbcommon", .{});
+ 
+-    const xkbcommon_static = b.dependency("libxkbcommon", .{
+-        .target = target,
+-        .optimize = optimize,
+-        .linkage = .static,
+-    });
+     const xkbcommon_native_static = b.addLibrary(.{
+         .name = "xkbcommon-native",
+         .root_module = b.createModule(.{
+@@ -108,14 +96,13 @@ pub fn build(b: *Build) !void {
+         .flags = &.{"-DJANET_ENTRY_NAME=janet_module_entry_xkbcommon_native"},
+     });
+     xkbcommon_native_static.root_module.linkLibrary(janet_static.artifact("janet"));
+-    xkbcommon_native_static.root_module.linkLibrary(xkbcommon_static.artifact("xkbcommon"));
++    xkbcommon_native_static.root_module.linkSystemLibrary("xkbcommon", .{});
+ 
+     const gen_protocols = b.addRunArtifact(janet.artifact("janet-bin"));
+     gen_protocols.addFileArg(b.path("build/gen-protocols.janet"));
+     const protocols_image = gen_protocols.addOutputFileArg("protocols.jimage");
+-    gen_protocols.addFileArg(wayland.namedLazyPath("wayland-xml"));
+-    const wayland_protocols = b.dependency("wayland_protocols", .{});
+-    gen_protocols.addDirectoryArg(wayland_protocols.path("."));
++    gen_protocols.addArg("@wayland_xml@");
++    gen_protocols.addArg("@wayland_protocols@");
+     const river = b.dependency("river", .{});
+     gen_protocols.addDirectoryArg(river.path("protocol"));
+ 

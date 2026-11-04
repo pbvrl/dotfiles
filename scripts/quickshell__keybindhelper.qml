@@ -143,6 +143,7 @@ ShellRoot {
         "~/.config/nixos/dotfiles/kanata/kanata.kbd",
         "~/.config/nixos/scripts_as_dotfiles/quickshell/keyboard_overlay.qml",
         "~/.config/nixos/scripts/river/init",
+        "~/.config/nixos/dotfiles/rijan/init.janet",
         "~/.config/nixos/dotfiles/fcitx5/config",
         "~/.config/nixos/dotfiles/ghostty/ghostty",
         "~/.config/nixos/dotfiles/wezterm/wezterm.lua",

@@ -7,6 +7,7 @@
   # nix PROGRAM CONFIGURATION
   imports = [
     ../dotfiles/greetd.nix
+    ../dotfiles/rijan.nix
     ../secrets/sopsnix.nix
     ../dotfiles/kanata.nix
     ../dotfiles/udisks.nix
@@ -62,7 +63,8 @@
     tuigreet
     greetd
     # Compositor
-    river-classic # Similar to i3/sway. Aside from to set scratchpads, I use it the same as i3/sway.
+    rijan # new river wayland compositor (river) with custom wayland window manager (forks rijan, of the same author as river/river-classic). Same as river-classic but I configure the floating scratchpads behave better (../dotfiles/rijan/rijan.janet) and the init config is less fragile, like in i3/sway (river-classic uses a bash script)
+    river-classic # old river (river-classic), handles both compositor and window manager. Similar to i3/sway. Aside from floating windows ("scratchpads") I used it the same as i3/sway.
     sway
     # Widgets, status bars...
     quickshell
