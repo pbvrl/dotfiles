@@ -1,4 +1,3 @@
-blacklist = ["aichat", "aieditor", "news"]
 sort_order = ["nixos"]
 
 [[session]]

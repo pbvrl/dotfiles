@@ -5,7 +5,6 @@
 mkdir -p "$HOME/.config/river"
 mkdir -p "$HOME/.config/quickshell"
 mkdir -p "$HOME/.config/nvim"
-mkdir -p "$HOME/.config/aichat"
 mkdir -p "$HOME/.config/fcitx5"
 mkdir -p "$HOME/.config/fish"
 mkdir -p "$HOME/.config/ghostty"
@@ -35,7 +34,6 @@ stow --restow lazyvim       -t "$HOME/.config/nvim"
 cd "$HOME/.config/nixos/scripts_as_dotfiles/opencode" || exit  
 stow --restow plugin       -t "$HOME/.config/opencode/plugin"
 cd "$HOME/.config/nixos/dotfiles" || exit  
-stow --restow aichat        -t "$HOME/.config/aichat"
 stow --restow fcitx5        -t "$HOME/.config/fcitx5"
 # rm $HOME/.config/fish/config.fish
 stow --restow fish          -t "$HOME/.config/fish"
@@ -58,3 +56,6 @@ stow --restow wezterm       -t "$HOME/.config/wezterm"
 stow --restow handy         -t "$HOME/.local/share/com.pais.handy"
 stow --restow opencode      -t "$HOME/.config/opencode"
 stow --restow wluma         -t "$HOME/.config/wluma"
+
+private_stow=$HOME/.config/nixos/private/scripts/stow.sh
+if [ -x "$private_stow" ]; then "$private_stow"; fi

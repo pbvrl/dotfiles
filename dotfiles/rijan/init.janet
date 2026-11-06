@@ -33,9 +33,9 @@
     "brightness.term"
     {:key [:e super] :size [700 200]
      :command `ghostty --class=brightness.term --gtk-tabs-location=hidden --initial-command="$HOME/.config/nixos/scripts/brightnessctl.sh; exec bash"`}
-    "aichat.term"
+    "private.term"
     {:key [:h alt] :size large
-     :command `wezterm --config initial_cols=184 --config initial_rows=49 start --class aichat.term --workspace aichat -- bash -c 'export OPENROUTER_API_KEY=$(cat /run/secrets/OPENROUTER_API_KEY); aichat; exec bash'`}
+     :command `wezterm --config initial_cols=184 --config initial_rows=49 start --class private.term --workspace private -- bash -c '$HOME/.config/nixos/private/scripts/scratchpad.sh; exec bash'`}
     "localai.term"
     {:key [:i alt] :size large
      :command `WEZTERM_TITLEBAR=light wezterm --config initial_cols=184 --config initial_rows=49 start --class localai.term --workspace localai -- bash -c 'cd ~/.config/nixos; claude --resume; exec bash'`}

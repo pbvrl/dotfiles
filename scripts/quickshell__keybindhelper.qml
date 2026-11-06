@@ -43,7 +43,7 @@ ShellRoot {
                 { "key": "Super+1-9", "description": "Switch to workspace" },
                 { "key": "Alt+u", "description": "Toggle claude code (Run 'claude')" },
                 { "key": "Alt+i", "description": "Toggle claude code (Run opencode)" },
-                { "key": "Alt+h", "description": "Toggle aichat" },
+                { "key": "Alt+h", "description": "Toggle private scratchpad" },
                 { "key": "Alt+a", "description": "Dismiss notification (mako)" },
                 { "key": "Alt+z", "description": "Toggle notifications" },
                 { "key": "Alt+c", "description": "Screenshot to clipboard" },
@@ -129,14 +129,6 @@ ShellRoot {
                 { "key": "T", "description": "Toggle preview pane" },
             ]
         },
-        {
-            "category": "Aichat",
-            "keybindings": [
-                { "key": "", "description":  "'.session' Starts a session" },
-                { "key": "", "description":  "'.exit session' Exits a session" },
-                { "key": "", "description":  "'.macro yek DIRNAME PROMPT' \nPrompts model with PROMPT,\nfeeding ~/projects/DIRNAME/ as a file" },
-            ]
-        },
     ]
     property string sourceFilesRoot: "~/.config/nixos/"
     property var sourceFiles: [
@@ -151,8 +143,6 @@ ShellRoot {
         "~/.config/nixos/dotfiles/helix/config.toml",
         "~/.config/nixos/dotfiles/fish/config.fish",
         "~/.config/nixos/dotfiles/yazi/keymap.toml",
-        "~/.config/nixos/dotfiles/aichat/macros/yek.yaml",
-        "~/.config/nixos/dotfiles/aichat/.env",
         "~/.config/nixos/scripts/quickshell__keybindhelper.qml"
     ]
     property string footerNote: "Also: Defaults from Helix/Neovim, Yazi, Lazygit, etc"

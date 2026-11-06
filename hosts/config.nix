@@ -92,8 +92,6 @@
     (opencode.overrideAttrs (old: {
       node_modules = old.node_modules.overrideAttrs {outputHash = "sha256-prx9dX7kUvs/E3zopkaPk5LXh3xJAy5sZeum/W8L7cA=";};
     }))
-    aichat # with yek+jaq (jq) for feeding it a whole codebase; will probably remove since frontiner lab harnesses already do this now
-    yek
     # App launcher
     fuzzel
     # Terminal

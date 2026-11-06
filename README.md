@@ -261,7 +261,6 @@ Set up a new dotfile:
 | Lazygit | Open a new instance |
 | Yazi | Open a new instance |
 | Claude-code | Open a new instance |
-| sigoden/aichat | Open a new instance |
 
 # Installing programs
 
